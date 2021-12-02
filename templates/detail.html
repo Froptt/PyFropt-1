@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+
+ {% block body %}
+
+<div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-md-8 offset-md-2">
+
+      <!-- Title -->
+      <h3 class="mt-4">{{article.title}}</h3>
+
+      <!-- Author -->
+      <p class="lead">
+          Yazar Adı
+          <font face="'Thin 100 italic'">({{article.author.username}})</font>
+      </p>
+
+      <hr>
+
+
+      <p>{{article.created_date}}</p>
+
+      <hr>
+
+        {% if article.article_image %}
+      <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+        {% endif %}
+      <hr>
+
+      <p>{{article.content|safe}}</p>
+
+      <hr>
+ <h2 style="color:blue;font-style:italic;font-size26px;text-align:center;font-family:'Thin 100 italic';">Yorumlar</h2>
+                          <hr>
+    {% if comments %}
+     {% for comment in comments %}
+
+ <div class="flex-shrink-0"><img class="rounded-circle" height="50px" width="50px" alt="..." /></div>
+    <div class="ms-3">
+
+        <div class="fw-bold">{{comment.comment_author}}</div>
+       {{comment.comment_content}}<br>
+        {{comment.comment_date}}
+    </div>
+
+      {% endfor %}
+    {% else %}
+  <div style="text-align:center" class="alert alert-danger">Herhangibi bir Yorum yok</div>
+  {% endif %}
+      <div class="card my-4">
+          <h5 class="card-header" style="font-family:'Thin 100 italic'">Yorum Ekle:</h5>
+          <div class="card-body">
+            <form method = "post" action = "{% url 'article:comment' article.id %}">
+              {% csrf_token %}
+   <div class="form-group">
+
+                    <label style="font-family:'Thin 100 italic'" for="formGroupExampleInput">İsim</label>
+                {% if user.username %}
+                                        <input name = "comment_author" type="text" style="font-family:'Thin 100 italic'" class="form-control" id="formGroupExampleInput" placeholder="" value="{{user.username}}"READONLY>
+
+                    {% else %}
+                                        <input name = "comment_author" type="text" style="font-family:'Thin 100 italic'" class="form-control" id="formGroupExampleInput" placeholder="" value="Anonim Kullanıcı"READONLY>
+
+                     {% endif %}
+                </div>
+              <div class="form-group">
+                  <label style="font-family:'Thin 100 italic'" for="formGroupExampleInput">Yorum</label>
+                <textarea style="font-family:'Thin 100 italic';font-size:25" name = "comment_content" class="form-control" rows="5"></textarea>
+              </div>
+
+                <hr>
+                <button type="submit" style="float:right" class="btn btn-info">Yorum Ekle</button>
+
+            </form>
+
+
+        </div>
+
+      </div>
+</div>
+</div>
+</div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {% endblock body %}

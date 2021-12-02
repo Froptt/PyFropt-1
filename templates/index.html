@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+ {% load crispy_forms_tags %}
+<div class="d"><h2 style=";font-family: 'Times New Roman', Times, serif;">
+    <p style="text-align:center">  <a class="navbar-brand" href="#">
+        <img style="" height="50px" width="25%" src="{% static 'py.png' %}" alt="..." /></a>
+</p></h2>
+
+        <ul style="float:left;font-size:26px">
+                <li>
+                        Anasayfa
+                </li>
+                  <li>
+                        Hakkımızda
+                </li>
+                  <li class="">
+                        Makaleler
+
+                </li>
+                  <li>
+                  İletişim
+                </li>
+
+               <li>
+                  Kontrol Paneli
+                <ul>
+                    <li><p>
+            {% if request.user.is_authenticated %}
+                  Hoşgeldiniz , <font color="blue" face="helvetica"> <i>{{request.user.username}}</i></font>
+                        <br>
+                        <p style="font-size:25px;font-family:'Thin 100 italic'">
+                           Biz bu siteyi tasarlarken günümüz sorunlarını çözmek
+                        ve biraz olsun birbirimize bir şeyler katmayı amaçladık , umarım size yardımcı olabiliriz.
+  </p>
+            {% else %}
+                   Lütfen Giriş Yapınız.
+            {% endif %}
+            </p></li>
+
+                </ul>
+
+                </li>
+
+
+        </ul>
+
+
+</div>
+
+<!--<img  height="100%" width="100%" src="{% static 'code.jpg' %}" alt="..." />-->
+
+
+
+
+{% endblock body %}
+
+
